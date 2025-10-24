@@ -24,13 +24,6 @@ public class SkincareService {
         this.recommender = recommender;
     }
 
-    public static SkincareService defaultWired() {
-        WeeklyRoutinePlanner weeklyRoutinePlanner = new WeeklyRoutinePlanner();
-        ProductCatalog productCatalog = ProductCatalog.loadAllFromConstants();
-        ProductRecommender productRecommender = new ProductRecommender(productCatalog);
-        return new SkincareService(weeklyRoutinePlanner, productRecommender);
-    }
-
     public List<DayPlan> buildWeeklyRoutine(SkinType skinType) {
         return planner.planWeek(skinType);
     }

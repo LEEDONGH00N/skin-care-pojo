@@ -77,9 +77,6 @@ public class CosingFunctionFetcher {
         return result;
     }
 
-    // ✅ ingredient(원본) 표기를 기준으로 가장 정확한 후보 선택
-    //    우선순위: strict 완전일치(슬래시 보존) > relaxed 완전일치(슬래시→공백) > 부분일치
-    //    tie-break: itemType=ingredient > functionName 존재
     private static JsonNode chooseBestMatch(JsonNode results, String originalQuery) {
         String qStrict  = normalizeStrict(originalQuery);   // 슬래시 유지
         String qRelaxed = normalizeRelaxed(originalQuery);  // 슬래시→공백
@@ -131,7 +128,6 @@ public class CosingFunctionFetcher {
         return n.asText("");
     }
 
-    // 🔹 검색 전용: 슬래시를 공백으로 치환, 대문자화, 공백 정리
     private static String normalizeForSearch(String q) {
         if (q == null) return "";
         return q.replace("/", " ")
@@ -139,7 +135,6 @@ public class CosingFunctionFetcher {
                 .trim();
     }
 
-    // 🔹 매칭용(strict): 슬래시 보존, 대소문자만 무시, 공백 정규화
     private static String normalizeStrict(String s) {
         if (s == null) return "";
         return s.toUpperCase()
@@ -147,7 +142,6 @@ public class CosingFunctionFetcher {
                 .trim();
     }
 
-    // 🔹 매칭용(relaxed): 슬래시→공백으로 치환, 대소문자 무시, 공백 정규화
     private static String normalizeRelaxed(String s) {
         if (s == null) return "";
         return s.toUpperCase()
@@ -156,9 +150,7 @@ public class CosingFunctionFetcher {
                 .trim();
     }
 
-    // 🔹 phrase 검색으로 정확도 상승 (검색시에만 슬래시 제거 버전 사용)
     private static String createJsonQuery(String searchQueryNormalized) {
-        // 큰따옴표로 감싸 exact phrase 검색 유도
         String phrase = "\"" + searchQueryNormalized + "\"";
         return """
                 {

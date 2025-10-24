@@ -11,8 +11,13 @@ import java.util.Random;
 
 public class WeeklyRoutinePlanner {
 
-    private final RoutineLibrary routineLibrary = new RoutineLibrary();
-    private final Random random = new Random();
+    private final RoutineLibrary routineLibrary;
+    private final Random random;
+
+    public WeeklyRoutinePlanner(RoutineLibrary routineLibrary) {
+        this.routineLibrary = routineLibrary;
+        this.random = new Random();
+    }
 
     public List<DayPlan> planWeek(SkinType skinType) {
         List<DayPlan> weekPlan = new ArrayList<>(7);

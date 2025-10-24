@@ -1,9 +1,13 @@
-import domain.routine.SkincareService;
+
 import domain.routine.SkincareController;
+import global.AppConfig;
 
 public class SkincareRoutineApp {
     public static void main(String[] args) {
-        SkincareController skincareController = new SkincareController(SkincareService.defaultWired());
-        skincareController.run();
+        AppConfig config = new AppConfig();
+        config.load();
+        SkincareController controller =
+                new SkincareController(config.skincareService(), config.ingredientService());
+        controller.run();
     }
 }

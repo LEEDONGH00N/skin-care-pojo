@@ -1,6 +1,7 @@
 package domain.routine;
 
 import domain.day_plan.DayPlan;
+import domain.ingredient.IngredientService;
 import domain.product.Product;
 import domain.profile.SkinType;
 import domain.profile.Step;
@@ -12,9 +13,11 @@ import java.util.Map;
 public class SkincareController {
 
     private final SkincareService routineService;
+    private final IngredientService ingredientService;
 
-    public SkincareController(SkincareService service) {
+    public SkincareController(SkincareService service, IngredientService ingredientService) {
         this.routineService = service;
+        this.ingredientService = ingredientService;
     }
 
     public void run() {
